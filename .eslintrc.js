@@ -8,7 +8,6 @@ module.exports = {
     "eslint:recommended",
     //"plugin:prettier/recommended",// 这个插件有冲突
   ],
-  //parser: "vue-eslint-parser",
   parserOptions: {
     parser: "@babel/eslint-parser",
   },
