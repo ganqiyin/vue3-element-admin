@@ -1,64 +1,73 @@
 <template>
-    <div id="login">
-        <div class="form-wrap">
-            <ul class="menu-tab">
-               <li class="current">登录</li>
-               <li>注册</li>
-            </ul>
-        </div>
-        <el-form ref="form" >
-           <el-form-item >
-               <label class="form-label">用户名</label>
-               <el-input></el-input>
-           </el-form-item>
-           <el-form-item >
-               <label class="form-label">密码</label>
-               <el-input type="password"></el-input>
-           </el-form-item>
-           <el-form-item>
-               <el-button type="primary" >立即创建</el-button>
-           </el-form-item>
+    <div class="login_wrap">
+      <div class="form_wrap">
+        <el-form ref="formRef" :model="loginData" label-width="100px" class="demo-dynamic">
+          <el-form-item prop="username" label="用户名" 
+            :rules="[
+              {
+                required: true,
+                message: '此项为必填项',
+                trigger: 'blur',
+              },
+            ]"
+          >
+            <el-input v-model="loginData.username" />
+          </el-form-item>
+  
+          <el-form-item prop="password" label="密码"
+            :rules="[
+              {
+                required: true,
+                message: '此项为必填项',
+                trigger: 'blur',
+              },
+            ]"
+          >
+            <el-input type="password" v-model="loginData.password" />
+          </el-form-item>
+  
+          <el-form-item>
+            <el-button type="primary" @click="submitForm(formRef)">登录</el-button>
+            <!-- <el-button @click="addDomain">New domain</el-button>
+                 <el-button @click="resetForm(formRef)">Reset</el-button> -->
+          </el-form-item>
         </el-form>
+      </div>
     </div>
-</template>
+  </template>
+  
+  <script>
+    import { reactive, toRefs } from "vue";
+    export default {
+      name: "Login1View",
+      setup() {
+        const data = reactive({
+          loginData: {
+            username: "",
+            password: "",
+          },
+        });
+        return {
+          ...toRefs(data),
+        };
+      },
+    };
+  </script>
 
-<style lang="scss" scoped>
-
-  #login 
-  {
-    height: 100vh;
-    background-color: #344a5f;
-  }
-  .form-wrap
-   {
-    width: 320px;
-    padding-top: 100px;
-    margin: auto;
-  }
-
-  .menu-tab 
-  {
-    text-align: center;
-    li 
-    {
-        display: inline-block;
-        padding: 10px 24px;
-        margin: 0 10px;
-        color: #fff;
-        font-size: 14px;
-        border-radius: 5px;
-        cursor: pointer;
-        &.current 
-        {
-            background-color: rgba(0,0,0,.1);
-        }
+  <style scoped>
+    .login_wrap {
+      width: 100%;
+      height: 100vh;
+      background: #2d3761;
+      position: relative;
     }
-  }
 
-  .form-label
-  {
-     display: block;
-     color: #fff;
-     font-size: 14px;
-  }
-</style>
+    .form_wrap {
+      position: fixed;
+      top: 50%;
+      transform: translate(130%, -50%);
+      background: #fff;
+      padding: 30px 50px;
+      border-radius: 5px;
+    }
+  </style>
